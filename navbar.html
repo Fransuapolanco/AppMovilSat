@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Herramienta de Incidentes Informáticos SAT</title>
+    <link rel="stylesheet" type="text/css" href="Style2.css">
+
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Enlace a Bootstrap -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <!-- Enlace a jQuery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Enlace a JavaScript de Bootstrap -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+      <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+      
+    </head>
+
+    <style>
+      body {
+        background-color: #ffffff;
+      }
+
+      .navbar {
+        background-color: #537edb;
+        border: none;
+        border-radius: 0;
+        margin-bottom: 0;
+      }
+
+      .navbar-brand {
+        color: #fff;
+        font-size: 25px;
+        font-weight: bold;
+      }
+
+      .navbar-toggle .icon-bar {
+        background-color: #fff;
+      }
+
+      .navbar-collapse {
+        background-color: #537edb;
+        text-align: center;
+      }
+
+      .navbar-collapse ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+      }
+
+      .navbar-collapse ul li {
+        margin: 0 10px;
+      }
+
+      .navbar-collapse ul li a {
+        display: block;
+        color: #ff7733;
+        text-align: center;
+        padding: 15px;
+        text-decoration: none;
+        border-radius: 0;
+        transition: background-color 0.3s ease;
+        background-color: #faf7f7;
+      }
+
+      .navbar-collapse ul li a:hover {
+        background-color: #ff7733;
+      }
+
+      .jumbotron {
+        background-color: #ff7733;
+        text-align: center;
+        padding: 50px;
+        margin-top: 20px;
+      }
+
+      .jumbotron h1 {
+        font-size: 50px;
+        color: #ff7733;
+      }
+    </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">HERRAMIENTA DE INCIDENTES INFORMATICOS SAT</a>
+      <br><br><br>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="nav-item active"><a href="#" class="nav-link">Inicio</a></li>
+          <li class="nav-item"><a href="CrearTicket.html" class="nav-link">Crear Ticket</a></li>
+          <li class="nav-item"><a href="TicketCreado.html" class="nav-link">Tickets Creados</a></li>
+          <li class="nav-item"><a href="EstadoTicket.html" class="nav-link">Estado de Tickets</a></li>
+        </ul>
+      </div>
+      <br>
+      <div>
+        <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
+      </div>
+    </div>
+  </nav>
+  <div class="header">
+    <img src="LogoSat.png" alt="Logo de la empresa">
+    <h1>Bienvenidos al sistema de incidentes informáticos de la Gerencia Regional Central</h1>
+  </div>
+
+  <script>
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAqQ59WQN0Srzk0EAUrdp0qeKiNfHHNCKs",
+      authDomain: "appmoviltickets.firebaseapp.com",
+      databaseURL: "https://appmoviltickets-default-rtdb.firebaseio.com",
+      projectId: "appmoviltickets",
+      storageBucket: "appmoviltickets.appspot.com",
+      messagingSenderId: "549655236347",
+      appId: "1:549655236347:web:098a5e5ff59ca51d806a5e",
+      measurementId: "G-P7879R6RJD"
+    };
+    
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+  
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        // Cierre de sesión exitoso, redirigir a AppMovilProyectoGraduacion.html
+        window.location.href = "AppMovilProyectoGraduacion.html";
+      }).catch((error) => {
+        // Error en el cierre de sesión, mostrar mensaje de error si deseas
+        console.log("Error al cerrar sesión:", error);
+      });
+    }
+  </script>
+  
+</body>
+</html>
