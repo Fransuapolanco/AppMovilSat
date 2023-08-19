@@ -64,6 +64,32 @@
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
         }
 
+
+
+        
+        select#unidad {
+        width: 100%;
+        padding: 25px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 15px; /* Aumenta el tamaño de la fuente */
+        color: #333;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        height: 40px; /* Aumenta la altura del campo de selección */
+    }
+
+    select#unidad:focus {
+        outline: none;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    }
+        
+
+
+
+
         input[type="submit"] {
             background-color: #4caf50;
             color: #fff;
@@ -116,14 +142,45 @@
         </div>
         
         <div class="form-group">
-            <label for="asunto">Unidad:</label>
-            <input type="text" id="asunto" name="asunto" required>
+            <label for="unidad">Unidad:</label>
+            <span id="unidadSeleccionadaLabel">Seleccione la unidad</span>
+            <select id="unidad" name="unidad" required>
+                <option value="" disabled selected>SELECCIONE LA UNIDAD A LA QUE PERTENECE:</option>
+                <option value="Atención al Contribuyente">Atención al Contribuyente</option>
+                <option value="Sección Administrativa Financiera">Sección Administrativa Financiera</option>
+                <option value="División de Fiscalización">Sección de Fiscalización</option>
+                <option value="División de Recaudación">División de Recaudación</option>
+                <option value="Gerencia de Asuntos Internos">Gerencia de Asuntos Internos</option>
+                <option value="Gerencia de Planificación">Gerencia de Planificación</option>
+                <option value="Gerencia de Formación de Personal">Gerencia de Formacion de Personal</option>
+                <option value="Intendencia de Asuntos Juridicos">Intendencia de Asuntos Juridicos</option>
+                <option value="Gerencia de Infraestructura">Gerencia de Infraestructura</option>
+                <option value="Gerencia de Seguridad Institucional">Gerencia de Seguridad Institucional</option>
+                <option value="División de Aduanas">División de Aduanas</option>
+                <option value="División de Resoluciones">División de Resoluciones</option>
+                <option value="Aduana Express Aéreo">Aduana Express Aereo</option>
+                <option value="Recursos Humanos">Recursos Humanos</option>
+                <option value="Contribuyentes Especiales">Contribuyentes Especiales</option>
+                <option value="Auditoria Interna">Auditoria Interna</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="unidadSeleccionada">Unidad Seleccionada:</label>
+            <input type="text" id="unidadSeleccionada" name="unidadSeleccionada" readonly>
         </div>
         
         <div class="form-group">
             <label for="mensaje">Inconveniente:</label>
             <textarea id="mensaje" name="mensaje" required></textarea>
         </div>
+
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+        </div>
+        
+        
         
         
         <div class="form-group">
@@ -167,9 +224,39 @@
     }
     </style>
 
+
+
+
+    
+
+<style>
+    /* Estilos personalizados para el campo de fecha */
+    input[type="date"] {
+        width: 95%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 18px; /* Aumenta el tamaño de la fuente */
+        color: #333;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        height: 40px; /* Aumenta la altura del campo de fecha */
+    }
+
+    input[type="date"]:focus {
+        outline: none;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
     <div class="return-button">
         <a href="navbar.html">&lt;&lt; Regresar</a>
     </div>
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -192,16 +279,19 @@
     
                 const nombre = document.querySelector('#nombre').value;
                 const email = document.querySelector('#email').value;
-                const asunto = document.querySelector('#asunto').value;
+                const unidadSeleccionada = document.querySelector('#unidad').value;
                 const mensaje = document.querySelector('#mensaje').value;
+                
+
     
                 // Crea un objeto con los datos del formulario
                 const datos = {
                     nombre: nombre,
                     email: email,
-                    asunto: asunto,
+                    asunto: unidadSeleccionada,
                     mensaje: mensaje,
-                    
+                    fecha: new Date().toLocaleDateString(),
+                    hora: new Date().toLocaleTimeString()
                 };
     
                 // Guarda los datos del ticket en Firebase Realtime Database
@@ -220,9 +310,23 @@
         });
                         // Si la petición fue exitosa, redirecciona al usuario a la página de estado del ticket
                         alert('La solicitud ha sido enviada correctamente. El número de ticket es: ' + nuevoTicketRef.key);
-                        window.location.href = 'TicketCreado.html?ticket=' + nuevoTicketRef.key;
+                        window.location.href = 'TicketCreado.html?ticket=' + nuevoTicketRef.key + '&fecha=' + datos.fecha;
+
                     }
                 });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const unidadSelect = document.querySelector('#unidad');
+            const unidadSeleccionadaInput = document.querySelector('#unidadSeleccionada');
+
+            // Agregar un evento de cambio al campo de selección
+            unidadSelect.addEventListener('change', function() {
+                const unidadSeleccionada = unidadSelect.value;
+                unidadSeleccionadaInput.value = unidadSeleccionada;
             });
         });
     </script>

@@ -15,6 +15,7 @@ form.addEventListener('submit', function(event) {
     email: email,
     asunto: asunto,
     mensaje: mensaje
+    
   };
 
   // Envía los datos del formulario al servidor usando una petición AJAX

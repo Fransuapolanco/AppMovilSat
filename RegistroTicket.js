@@ -7,7 +7,7 @@ app.get('/registro-ticket', function(req, res) {
   // Obtener los parámetros de la solicitud GET
   const nombre = req.query.nombre;
   const email = req.query.email;
-  const asunto = req.query.asunto;
+  const unidadSeleccionada = document.querySelector('#unidad').value;
   const mensaje = req.query.mensaje;
 
   // Realizar las acciones necesarias con los datos del ticket

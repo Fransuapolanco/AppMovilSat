@@ -57,6 +57,7 @@
       // Inicializar Firebase
       firebase.initializeApp(firebaseConfig);
       const auth = firebase.auth();
+      let isAdmin = false; // Variable para verificar si el usuario es administrador
 
       function login() {
             
