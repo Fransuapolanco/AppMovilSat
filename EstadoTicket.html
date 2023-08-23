@@ -119,9 +119,27 @@
         .change-status button:hover {
             background-color: #0056b3;
         }
+
+
+
+        * Estilos para la tabla de contadores */
+        .ticket-counters {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 30%;
+        }
+
+        .ticket-counters th, .ticket-counters td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <div class="return-button">
+        <a href="navbar.html">&lt;&lt; Regresar</a>
+    </div>
     <!-- Instrucciones de estados -->
     <div style="margin-bottom: 20px;">
         <h1 style="text-align: center;">Estado del Ticket</h1>
@@ -141,9 +159,43 @@
 
     <img src="Ticket.png" alt="Logo Ticket" class="logo">
 
-    <div class="return-button">
-        <a href="navbar.html">&lt;&lt; Regresar</a>
-    </div>
+
+
+
+    <table class="ticket-counters">
+        <tr>
+            <th>Estado</th>
+            <th>Contador</th>
+        </tr>
+        <tr>
+            <td>Abiertos</td>
+            <td><span id="abiertos-count">0</span></td>
+        </tr>
+        <tr>
+            <td>En Proceso</td>
+            <td><span id="proceso-count">0</span></td>
+        </tr>
+        <tr>
+            <td>Cerrados</td>
+            <td><span id="cerrados-count">0</span></td>
+        </tr>
+    </table>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <h2>Tickets creados</h2>
     <table class="ticket-table">
@@ -162,6 +214,8 @@
         </thead>
         <tbody id="tickets-list"></tbody>
     </table>
+
+
 
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
@@ -182,6 +236,8 @@
 
             const db = firebase.database();
             const ticketsRef = db.ref('tickets');
+
+
 
             // Función para mostrar los tickets en la tabla
             function renderTickets(tickets) {
@@ -251,6 +307,76 @@
                     .then(() => console.log("Ticket eliminado correctamente"))
                     .catch(error => console.error("Error al eliminar el ticket:", error));
             }
+
+
+
+
+
+
+
+
+// Función para cambiar el estado del ticket
+function changeTicketStatus(event) {
+    const ticketKey = event.target.getAttribute("data-ticket-key");
+    const newStatus = event.target.getAttribute("data-new-status");
+    const ticketRef = ticketsRef.child(ticketKey);
+
+    ticketRef.update({ status: newStatus })
+        .then(() => {
+            console.log("Estado del ticket actualizado correctamente");
+            // Actualizar contadores
+            updateTicketCounters();
+        })
+        .catch(error => console.error("Error al actualizar el estado del ticket:", error));
+}
+
+// Función para eliminar el ticket correspondiente
+function removeTicket(event) {
+    const ticketKey = event.target.getAttribute("data-ticket-key");
+    const ticketRef = ticketsRef.child(ticketKey);
+
+    ticketRef.remove()
+        .then(() => {
+            console.log("Ticket eliminado correctamente");
+            // Actualizar contadores
+            updateTicketCounters();
+        })
+        .catch(error => console.error("Error al eliminar el ticket:", error));
+}
+// Función para contar los tickets en diferentes estados y actualizar los contadores
+function updateTicketCounters() {
+    ticketsRef.once('value', function(snapshot) {
+        const tickets = snapshot.val();
+        let countAbiertos = 0;
+        let countProceso = 0;
+        let countCerrados = 0;
+
+        for (const ticketKey in tickets) {
+            const ticket = tickets[ticketKey];
+            if (ticket.status === 'Abierto') {
+                countAbiertos++;
+            } else if (ticket.status === 'En Proceso') {
+                countProceso++;
+            } else if (ticket.status === 'Cerrado') {
+                countCerrados++;
+            }
+        }
+
+        // Actualizar los contadores en la tabla
+        document.getElementById("abiertos-count").textContent = countAbiertos;
+        document.getElementById("proceso-count").textContent = countProceso;
+        document.getElementById("cerrados-count").textContent = countCerrados;
+    });
+}
+
+
+
+
+
+
+
+
+
 
             // Mostrar los tickets existentes en la base de datos al cargar la página
             ticketsRef.on("value", function (snapshot) {
