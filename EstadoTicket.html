@@ -250,7 +250,20 @@
                         <td>${ticket.mensaje}</td>
                         <td>${fechaFormateada}</td>
                         <td>${horaFormateada}</td>
-                        <td>${ticket.tecnico}</td>
+                        <td>
+    <select class="technician-select" data-ticket-key="${ticketKey}">
+        <option value="Heber Peña">Heber Peña</option>
+        <option value="Luis Huertas">Luis Huertas</option>
+        <option value="Mariela Perez">Mariela Perez</option>
+        <option value="Renato Castellanos">Renato Castellanos</option>
+        <option value="Ricardo Gutierrez">Ricardo Gutierrez</option>
+        <option value="Ariel López">Ariel López</option>
+        <option value="Julio Castañeda">Julio Castañeda</option>
+        <option value="Bryan Mendoza">Bryan Mendoza</option>
+        <option value="Alejandro Avila">Alejandro Avila</option>
+    </select>
+</td>
+
                         <td>${estadoActual}</td>
                         
                         <td>
