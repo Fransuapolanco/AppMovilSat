@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Estado del ticket</title>
+    <style>
+        .ticket {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ticket-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .ticket-status {
+            margin-bottom: 5px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .status-open {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .status-in-progress {
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+        .status-closed {
+            background-color: #d9534f;
+            color: #fff;
+        }
+
+        /* Estilos del semáforo */
+        .semaphore-button {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .semaphore-button-green {
+            background-color: #5cb85c;
+        }
+
+        .semaphore-button-yellow {
+            background-color: #f0ad4e;
+        }
+
+        .semaphore-button-red {
+            background-color: #d9534f;
+        }
+
+        .return-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .return-button a:hover {
+            background-color: #0056b3;
+        }
+
+        .change-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .logo {
+            float: right;
+            max-width: 100px;
+            margin-top: 20px;
+        }
+
+        /* Nuevos estilos para la tabla */
+        .ticket-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ticket-table th, .ticket-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        /* Estilos para los botones */
+        .change-status button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px; /* Ajusta el padding para hacer los botones más pequeños */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .change-status button:hover {
+            background-color: #0056b3;
+        }
+
+
+
+        * Estilos para la tabla de contadores */
+        .ticket-counters {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 30%;
+        }
+
+        .ticket-counters th, .ticket-counters td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+
+
+        /* Estilo para el contenedor del gráfico */
+        .chart-container {
+            width: 600px; /* Ancho fijo del contenedor */
+            height: 400px; /* Altura fija del contenedor */
+            margin: 0 auto; /* Centrar el contenedor horizontalmente */
+        }
+
+        /* Estilo para el lienzo del gráfico */
+        #ticket-status-chart {
+            width: 100% !important; /* Ancho del lienzo del gráfico al 100% del contenedor */
+            height: 100% !important; /* Altura del lienzo del gráfico al 100% del contenedor */
+        }
+    </style>
+</head>
+<body>
+    <div class="return-button">
+        <a href="navbar.html">&lt;&lt; Regresar</a>
+    </div>
+    <!-- Instrucciones de estados -->
+    <div style="margin-bottom: 20px;">
+        <h1 style="text-align: center;">Estado del Ticket</h1>
+        
+    <img src="Ticket.png" alt="Logo Ticket" class="logo">
+
+    <table class="ticket-counters">
+        <tr>
+            <th>Estado</th>
+            <th>Contador</th>
+        </tr>
+        <tr>
+            <td>Abiertos</td>
+            <td><span id="abiertos-count">0</span></td>
+        </tr>
+        <tr>
+            <td>En Proceso</td>
+            <td><span id="proceso-count">0</span></td>
+        </tr>
+        <tr>
+            <td>Cerrados</td>
+            <td><span id="cerrados-count">0</span></td>
+        </tr>
+    </table>
+
+    
+
+    <h2>Estadísticas de Tickets</h2>
+    <div class="chart-container">
+        <canvas id="ticket-status-chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const firebaseConfig = {
+            apiKey: "AIzaSyAqQ59WQN0Srzk0EAUrdp0qeKiNfHHNCKs",
+            authDomain: "appmoviltickets.firebaseapp.com",
+            databaseURL: "https://appmoviltickets-default-rtdb.firebaseio.com",
+            projectId: "appmoviltickets",
+            storageBucket: "appmoviltickets.appspot.com",
+            messagingSenderId: "549655236347",
+            appId: "1:549655236347:web:098a5e5ff59ca51d806a5e",
+            measurementId: "G-P7879R6RJD"
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            const db = firebase.database();
+            const ticketsRef = db.ref('tickets');
+
+            const ctx = document.getElementById('ticket-status-chart').getContext('2d');
+
+            ticketsRef.on("value", function (snapshot) {
+                const tickets = snapshot.val();
+                let countAbiertos = 0;
+                let countProceso = 0;
+                let countCerrados = 0;
+
+                for (const ticketKey in tickets) {
+                    const ticket = tickets[ticketKey];
+                    if (ticket.status === 'Abierto') {
+                        countAbiertos++;
+                    } else if (ticket.status === 'En Proceso') {
+                        countProceso++;
+                    } else if (ticket.status === 'Cerrado') {
+                        countCerrados++;
+                    }
+                }
+
+                // Actualizar los contadores en la tabla
+                document.getElementById("abiertos-count").textContent = countAbiertos;
+                document.getElementById("proceso-count").textContent = countProceso;
+                document.getElementById("cerrados-count").textContent = countCerrados;
+
+                // Crear el gráfico de barras
+                const ticketStatusChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Abiertos', 'En Proceso', 'Cerrados'],
+                        datasets: [{
+                            label: 'Tickets por Estado',
+                            data: [countAbiertos, countProceso, countCerrados],
+                            backgroundColor: [
+                            'rgba(0, 128, 0, 0.6)', // Verde
+                            'rgba(255, 255, 0, 0.6)', // Amarillo
+                            'rgba(255, 0, 0, 0.6)'  // Rojo
+                            ],
+                            borderColor: [
+                            'rgba(0, 128, 0, 0.6)', // Verde
+                            'rgba(255, 255, 0, 0.6)', // Amarillo
+                            'rgba(255, 0, 0, 0.6)'  // Rojo
+                            ],
+                            borderWidth: 1,
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                        },
+                    },
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
