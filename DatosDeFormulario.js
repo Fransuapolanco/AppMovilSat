@@ -7,13 +7,15 @@ form.addEventListener('submit', function(event) {
   const email = document.querySelector('#email').value;
   const asunto = document.querySelector('#asunto').value;
   const mensaje = document.querySelector('#mensaje').value;
+  const tecnico = document.querySelector('#tecnico').value;
 
   // Crea un objeto con los datos del formulario
   const ticketData = {
     nombre: nombre,
     email: email,
     asunto: asunto,
-    mensaje: mensaje
+    mensaje: mensaje,
+    tecnico: tecnico
   };
 
   // Guarda los datos del ticket en Firebase Realtime Database

@@ -4,126 +4,124 @@
     <meta charset="UTF-8">
     <title>Tickets creados</title>
     <style>
-/* Reset de estilos para un mejor punto de partida */
-body, h1, h2, h3, p, ul, ol, li, table, th, td, form, input, button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
+        /* Reset de estilos para un mejor punto de partida */
+        body, h1, h2, h3, p, ul, ol, li, table, th, td, form, input, button {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
 
-header {
-    background-color: #007bff;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-}
+        header {
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
 
-header img {
-    width: 200px;
-    height: auto;
-    margin-right: 20px;
-}
+        header img {
+            width: 200px;
+            height: auto;
+            margin-right: 20px;
+        }
 
-.return-button a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #0056b3;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
+        .return-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
 
-.return-button a:hover {
-    background-color: #004196;
-}
+        .return-button a:hover {
+            background-color: #004196;
+        }
 
-main {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-.search-bar {
-    margin-bottom: 20px;
-}
+        .search-bar {
+            margin-bottom: 20px;
+        }
 
-#search-input {
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: #ffffff;
-}
+        #search-input {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #ffffff;
+        }
 
-#search-button {
-    padding: 10px 20px;
-    background-color: #ff5722;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        #search-button {
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
 
-thead {
-    background-color: #007bff;
-    color: #fff;
-}
+        thead {
+            background-color: #007bff;
+            color: #fff;
+        }
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
 
-th {
-    font-weight: bold;
-    text-align: left;
-    color: #141414;
-}
+        th {
+            font-weight: bold;
+            text-align: left;
+            color: #141414;
+        }
 
-.remove-button {
-    padding: 8px 16px;
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .remove-button {
+            padding: 8px 16px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.remove-button:hover {
-    background-color: #c0392b;
-}
+        .remove-button:hover {
+            background-color: #c0392b;
+        }
 
-/* Estilo para resaltar las filas al pasar el mouse */
-tr:hover {
-    background-color: #ffffff;
-}
-
-
+        /* Estilo para resaltar las filas al pasar el mouse */
+        tr:hover {
+            background-color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -149,6 +147,7 @@ tr:hover {
         <th>Descripcion del Ticket</th>
         <th>Fecha de Creación</th>
         <th>Hora de Creación</th>
+        <th>Técnico de Atención</th>
         <th>Acciones</th>
     </tr>
     <tbody id="tickets-list"></tbody>
@@ -201,45 +200,66 @@ tr:hover {
                     <td>${ticket.mensaje}</td>
                     <td>${fechaFormateada}</td>
                     <td>${horaFormateada}</td>
-                    <td><button class="remove-button" data-ticket-key="${ticketKey}">Borrar</button></td>
+                    <td>
+                    <select class="technician-select" data-ticket-key="${ticketKey}">
+                        <option value="Heber Peña">Heber Peña</option>
+                        <option value="Luis Huertas">Luis Huertas</option>
+                        <option value="Mariela Perez">Mariela Perez</option>
+                        <option value="Renato Castellanos">Renato Castellanos</option>
+                        <option value="Ricardo Gutierrez">Ricardo Gutierrez</option>
+                        <option value="Ariel López">Ariel López</option>
+                        <option value="Julio Castañeda">Julio Castañeda</option>
+                        <option value="Bryan Mendoza">Bryan Mendoza</option>
+                        <option value="Alejandro Marchena">Alejandro Marchena</option>
+                    </select>
+                    </td>
+                    <td>
+                        <button class="remove-button" data-ticket-key="${ticketKey}">Eliminar</button>
+                    </td>
                 `;
+
+                // Establecer el técnico seleccionado en el select
+                const technicianSelect = ticketRow.querySelector(".technician-select");
+                technicianSelect.value = ticket.tecnico || ""; // Si no hay técnico, establece el valor en blanco
 
                 ticketsList.appendChild(ticketRow);
             }
-
-            // Agregar evento para el botón "Borrar"
-            const removeButtons = document.getElementsByClassName("remove-button");
-            for (const button of removeButtons) {
-                button.addEventListener("click", removeTicket);
-            }
         }
 
-        // Función para eliminar el ticket correspondiente
-        function removeTicket(event) {
-            const ticketKey = event.target.getAttribute("data-ticket-key");
-            const ticketRef = firebase.database().ref(`tickets/${ticketKey}`);
-            ticketRef.remove()
-                .then(() => console.log("Ticket eliminado correctamente"))
-                .catch(error => console.error("Error al eliminar el ticket:", error));
-        }
+        // Cargar tickets iniciales
+        ticketsRef.once("value", (snapshot) => {
+            const tickets = snapshot.val();
+            renderTickets(tickets);
+        });
 
-        // Obtener el elemento de entrada y el botón de búsqueda
-        const searchInput = document.getElementById("search-input");
+        // Manejar la búsqueda de tickets
         const searchButton = document.getElementById("search-button");
+        const searchInput = document.getElementById("search-input");
 
-        // Agregar un evento de clic al botón de búsqueda
-        searchButton.addEventListener("click", function () {
+        searchButton.addEventListener("click", () => {
             const searchString = searchInput.value.trim();
-            ticketsRef.on("value", function (snapshot) {
+            ticketsRef.once("value", (snapshot) => {
                 const tickets = snapshot.val();
                 renderTickets(tickets, searchString);
             });
         });
 
-        // Mostrar los tickets existentes en la base de datos al cargar la página
-        ticketsRef.on("value", function (snapshot) {
-            const tickets = snapshot.val();
-            renderTickets(tickets);
+        // Manejar cambios en la selección del técnico
+        const ticketsList = document.getElementById("tickets-list");
+        ticketsList.addEventListener("change", (event) => {
+            if (event.target.classList.contains("technician-select")) {
+                const ticketKey = event.target.getAttribute("data-ticket-key");
+                const selectedTechnician = event.target.value;
+                ticketsRef.child(ticketKey).update({ tecnico: selectedTechnician });
+            }
+        });
+
+        // Manejar la eliminación de tickets
+        ticketsList.addEventListener("click", (event) => {
+            if (event.target.classList.contains("remove-button")) {
+                const ticketKey = event.target.getAttribute("data-ticket-key");
+                ticketsRef.child(ticketKey).remove();
+            }
         });
     });
 </script>

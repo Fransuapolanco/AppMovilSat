@@ -181,21 +181,6 @@
         </tr>
     </table>
     
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <h2>Tickets creados</h2>
     <table class="ticket-table">
@@ -208,6 +193,7 @@
                 <th>Descripcion del Ticket</th>
                 <th>Fecha de Creación</th>
                 <th>Hora de Creación</th>
+                <th>Técnico de Atención</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -264,7 +250,9 @@
                         <td>${ticket.mensaje}</td>
                         <td>${fechaFormateada}</td>
                         <td>${horaFormateada}</td>
+                        <td>${ticket.tecnico}</td>
                         <td>${estadoActual}</td>
+                        
                         <td>
                         <button class="remove-button" data-ticket-key="${ticketKey}">Borrar</button>
                         <button class="semaphore-button-green" data-ticket-key="${ticketKey}" data-new-status="Abierto">Abierto</button>
@@ -307,12 +295,6 @@
                     .then(() => console.log("Ticket eliminado correctamente"))
                     .catch(error => console.error("Error al eliminar el ticket:", error));
             }
-
-
-
-
-
-
 
 
 // Función para cambiar el estado del ticket
@@ -369,15 +351,6 @@ function updateTicketCounters() {
     });
 }
 
-
-
-
-
-
-
-
-
-
             // Mostrar los tickets existentes en la base de datos al cargar la página
             ticketsRef.on("value", function (snapshot) {
                 const tickets = snapshot.val();
@@ -388,6 +361,3 @@ function updateTicketCounters() {
     </script>
 </body>
 </html>
-
-
-

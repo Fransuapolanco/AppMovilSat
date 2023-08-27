@@ -1,4 +1,4 @@
-// Importar las dependencias necesarias
+// Importar las dependencias
 const express = require('express');
 const app = express();
 
@@ -10,14 +10,13 @@ app.get('/registro-ticket', function(req, res) {
   const unidadSeleccionada = document.querySelector('#unidad').value;
   const mensaje = req.query.mensaje;
 
-  // Realizar las acciones necesarias con los datos del ticket
-  // Guardar los datos en Firebase u otras operaciones
 
-  // Enviar una respuesta al cliente
+
+// Enviar una respuesta al cliente
   res.send('Solicitud de registro recibida');
 });
 
-// Iniciar el servidor en el puerto deseado
+// Iniciar el servidor en el puerto
 const port = 3000;
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
