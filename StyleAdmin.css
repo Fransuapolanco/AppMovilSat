@@ -1,0 +1,201 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Encabezado */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style: none;
+    text-align: center;
+}
+
+.navbar li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #0056b3;
+}
+
+/* Contenido principal */
+.main-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Tabla de usuarios */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+    .return-button a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .return-button a:hover {
+        background-color: #0056b3;
+    }
+
+/* Formulario de edición */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    font-weight: bold;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Pie de página */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        text-align: center;
+    }
+
+    .navbar li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+    
+}
+
+/* Estilo para las tablas */
+.roles-table, .permissions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.roles-table th, .permissions-table th,
+.roles-table td, .permissions-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.roles-table th, .permissions-table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.roles-table tr:nth-child(even), .permissions-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilo para los botones en la tabla */
+.edit-button, .delete-button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #0056b3;
+}

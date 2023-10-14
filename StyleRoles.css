@@ -1,0 +1,95 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0; /* Color de fondo general */
+}
+
+.return-button a {
+  background-color: #3498db; /* Azul */
+  color: white; /* Color del texto */
+  text-decoration: none; /* Sin subrayado en el texto */
+  padding: 12px 24px; /* Espaciado interno */
+  border-radius: 8px; /* Borde redondeado */
+  transition: background-color 0.3s; /* Transición suave del color de fondo */
+}
+
+.return-button a:hover {
+  background-color: #2980b9; /* Azul oscuro al pasar el ratón */
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* Fondo blanco */
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.user button {
+  padding: 8px 16px;
+  margin-left: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user button:first-child {
+  background-color: #2ecc71; /* Verde */
+  color: white;
+}
+
+.user button:first-child:hover {
+  background-color: #27ae60; /* Verde oscuro al pasar el ratón */
+}
+
+.user button:last-child {
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+}
+
+.user button:last-child:hover {
+  background-color: #c0392b; /* Rojo oscuro al pasar el ratón */
+}
+
+.change-status button {
+  background-color: #007bff; /* Azul */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px; /* Ajusta el padding para hacer los botones más pequeños */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.change-status button:hover {
+  background-color: #0056b3; /* Azul oscuro al pasar el ratón */
+}
+
+.admin {
+  color: #2ecc71; /* Verde */
+}
+
+.tecnico {
+  color: #e67e22; /* Naranja */
+}
+
+.usuario {
+  color: #3498db; /* Azul */
+}

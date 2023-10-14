@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asignación de Roles</title>
+  <link rel="stylesheet" href="StyleRoles.css">
+  <style>
+    /* Estilos modernos aquí */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .container h1, .container h2 {
+      text-align: center;
+    }
+
+    .container input, .container select, .container button {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .container input:focus, .container select:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    .container button {
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    .container button:hover {
+      background-color: #2980b9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Usuarios</h1>
+    <div class="user-list" id="userList">
+    <form id="userForm">
+      <input type="text" id="email" placeholder="Correo electrónico" autocomplete="username">
+      <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password">
+      <select id="role">
+        <option value="admin">Administrador</option>
+        <option value="tecnico">Técnico</option>
+        <option value="usuario">Usuario</option>
+        <option value="service_desk">Service Desk</option>
+        <option value="infraestructura">Infraestructura</option>
+        <option value="soporte_tecnico">Soporte Técnico</option>
+        <option value="analistas">Analistas</option>
+        <option value="bases_de_datos">Bases de Datos</option>
+      </select>
+      <button type="button" onclick="createUser()">Crear Usuario</button>
+    </form>
+      <h2>Usuarios Registrados:</h2>
+
+      <div class="role-section">
+        <h3>Administradores:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsers">
+            <!-- Admin users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Técnicos:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tecnicoUsers">
+            <!-- Technician users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Usuario:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="usuarioUsers">
+            <!-- Usuario users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Service Desk:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="Service_Desk">
+            <!-- Service Desk users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Infraestructura:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="infraestructura">
+            <!-- Infraestructura users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Soporte Técnico:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="soporte_tecnico">
+            <!-- Soporte Técnico users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Analistas:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="analistas">
+            <!-- Analistas users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="role-section">
+        <h3>Bases de Datos:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="bases_de_datos">
+            <!-- Bases de Datos users will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Incluye las referencias a Firebase y tu código JavaScript -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Initialize Firebase with your configuration
+ const firebaseConfig = {
+		    apiKey: "AIzaSyAqQ59WQN0Srzk0EAUrdp0qeKiNfHHNCKs",
+        authDomain: "appmoviltickets.firebaseapp.com",
+        databaseURL: "https://appmoviltickets.firebaseio.com",
+        projectId: "appmoviltickets",
+        storageBucket: "appmoviltickets.appspot.com",
+        messagingSenderId: "549655236347",
+        appId: "1:549655236347:web:098a5e5ff59ca51d806a5e"
+      };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firebase Firestore
+    const db = firebase.firestore();
+
+    async function addUserToFirestore(email, role) {
+      try {
+        await db.collection('users').add({
+          email,
+          role
+        });
+        console.log('Usuario agregado a Firestore:', email, role);
+      } catch (error) {
+        console.error('Error al agregar usuario a Firestore:', error);
+      }
+    }
+
+    function createUser() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value; // Agrega esta línea para obtener la contraseña
+  const role = document.getElementById('role').value;
+
+  // Autenticar al usuario usando Firebase Authentication
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed up
+      addUserToFirestore(email, role);
+      loadUsers();  // Recargar la lista de usuarios después de agregar uno nuevo
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.error('Error crear usuario:', errorMessage);
+    });
+}
+
+
+    function loadUsers() {
+      const adminUsersElement = document.getElementById('adminUsers');
+      const tecnicoUsersElement = document.getElementById('tecnicoUsers');
+      const usuarioUsersElement = document.getElementById('usuarioUsers');
+      const serviceDeskUsersElement = document.getElementById('Service_Desk');
+      const infraestructuraUsersElement = document.getElementById('infraestructura');
+      const soporteTecnicoUsersElement = document.getElementById('soporte_tecnico');
+      const analistasUsersElement = document.getElementById('analistas');
+      const basesDeDatosUsersElement = document.getElementById('bases_de_datos');
+
+      // Verifica si los elementos existen antes de operar en ellos
+      if (adminUsersElement && tecnicoUsersElement && usuarioUsersElement &&
+        serviceDeskUsersElement && infraestructuraUsersElement && soporteTecnicoUsersElement &&
+        analistasUsersElement && basesDeDatosUsersElement) {
+
+        // Clear the lists before loading users
+        adminUsersElement.innerHTML = '';
+        tecnicoUsersElement.innerHTML = '';
+        usuarioUsersElement.innerHTML = '';
+        serviceDeskUsersElement.innerHTML = '';
+        infraestructuraUsersElement.innerHTML = '';
+        soporteTecnicoUsersElement.innerHTML = '';
+        analistasUsersElement.innerHTML = '';
+        basesDeDatosUsersElement.innerHTML = '';
+
+        // Get users from Firestore
+        db.collection('users').get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const user = doc.data();
+
+              // Check the role and add the user to the appropriate role section
+              const userRow = document.createElement('tr');
+              userRow.innerHTML = `<td>${user.email}</td>`;
+
+              switch (user.role) {
+                case 'admin':
+                  adminUsersElement.appendChild(userRow);
+                  break;
+                case 'tecnico':
+                  tecnicoUsersElement.appendChild(userRow);
+                  break;
+                case 'usuario':
+                  usuarioUsersElement.appendChild(userRow);
+                  break;
+                case 'service_desk':
+                  serviceDeskUsersElement.appendChild(userRow);
+                  break;
+                case 'infraestructura':
+                  infraestructuraUsersElement.appendChild(userRow);
+                  break;
+                case 'soporte_tecnico':
+                  soporteTecnicoUsersElement.appendChild(userRow);
+                  break;
+                case 'analistas':
+                  analistasUsersElement.appendChild(userRow);
+                  break;
+                case 'bases_de_datos':
+                  basesDeDatosUsersElement.appendChild(userRow);
+                  break;
+                default:
+                  console.error('Role desconocido:', user.role);
+              }
+            });
+          })
+          .catch((error) => {
+            console.error('Error loading users: ', error);
+          });
+      } else {
+        console.error('No se encontraron elementos para cargar usuarios.');
+      }
+    }
+
+    // Load users when the page loads
+    window.onload = loadUsers;
+  </script>
+
+</body>
+</html>

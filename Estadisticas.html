@@ -4,162 +4,97 @@
     <meta charset="UTF-8">
     <title>Estado del ticket</title>
     <style>
-        .ticket {
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 10px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .ticket-title {
+        .container {
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            overflow: hidden;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 36px;
             font-weight: bold;
-            margin-bottom: 5px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2980b9;
         }
 
-        .ticket-status {
-            margin-bottom: 5px;
+        .chart-container {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .status {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
+        #ticket-status-chart {
+            max-width: 100%;
+            border-radius: 20px;
         }
 
-        .status-open {
-            background-color: #5cb85c;
-            color: #fff;
-        }
-
-        .status-in-progress {
-            background-color: #f0ad4e;
-            color: #fff;
-        }
-
-        .status-closed {
-            background-color: #d9534f;
-            color: #fff;
-        }
-
-        /* Estilos del semáforo */
-        .semaphore-button {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin-right: 5px;
-            cursor: pointer;
-        }
-
-        .semaphore-button-green {
-            background-color: #5cb85c;
-        }
-
-        .semaphore-button-yellow {
-            background-color: #f0ad4e;
-        }
-
-        .semaphore-button-red {
-            background-color: #d9534f;
+        .return-button {
+            text-align: center;
+            margin-top: 30px;
         }
 
         .return-button a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 20px 40px;
+            background-color: #3498db;
             color: #fff;
             text-decoration: none;
-            border: none;
-            border-radius: 4px;
+            border-radius: 20px;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
+            display: inline-block;
         }
 
         .return-button a:hover {
-            background-color: #0056b3;
+            background-color: #2980b9;
         }
 
-        .change-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .logo {
-            float: right;
-            max-width: 100px;
-            margin-top: 20px;
-        }
-
-        /* Nuevos estilos para la tabla */
-        .ticket-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .ticket-table th, .ticket-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        /* Estilos para los botones */
-        .change-status button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 4px 8px; /* Ajusta el padding para hacer los botones más pequeños */
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .change-status button:hover {
-            background-color: #0056b3;
-        }
-
-
-
-        * Estilos para la tabla de contadores */
         .ticket-counters {
-            margin-top: 20px;
+            margin-top: 30px;
             border-collapse: collapse;
-            width: 30%;
+            width: 100%;
         }
 
         .ticket-counters th, .ticket-counters td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 20px;
             text-align: center;
+            background-color: #ffffff;
+            color: #0a0a0a;
         }
 
-
-
-        /* Estilo para el contenedor del gráfico */
-        .chart-container {
-            width: 600px; /* Ancho fijo del contenedor */
-            height: 400px; /* Altura fija del contenedor */
-            margin: 0 auto; /* Centrar el contenedor horizontalmente */
-        }
-
-        /* Estilo para el lienzo del gráfico */
-        #ticket-status-chart {
-            width: 100% !important; /* Ancho del lienzo del gráfico al 100% del contenedor */
-            height: 100% !important; /* Altura del lienzo del gráfico al 100% del contenedor */
+        .ticket-counters th {
+            background-color: #e67e22;
         }
     </style>
+    
+    
+    
 </head>
 <body>
     <div class="return-button">
         <a href="navbar.html">&lt;&lt; Regresar</a>
     </div>
     <!-- Instrucciones de estados -->
-    <div style="margin-bottom: 20px;">
+    <div style="margin-bottom: 100px;">
         <h1 style="text-align: center;">Estado del Ticket</h1>
-        
-    <img src="Ticket.png" alt="Logo Ticket" class="logo">
+
 
     <table class="ticket-counters">
         <tr>
@@ -232,31 +167,38 @@
                 document.getElementById("proceso-count").textContent = countProceso;
                 document.getElementById("cerrados-count").textContent = countCerrados;
 
-                // Crear el gráfico de barras
-                const ticketStatusChart = new Chart(ctx, {
-                    type: 'bar',
+               // Crear el gráfico de barras
+               const ticketStatusChart = new Chart(ctx, {
+                    type: 'doughnut', // Cambiar a tipo de dona
                     data: {
                         labels: ['Abiertos', 'En Proceso', 'Cerrados'],
                         datasets: [{
                             label: 'Tickets por Estado',
                             data: [countAbiertos, countProceso, countCerrados],
                             backgroundColor: [
-                            'rgba(0, 128, 0, 0.6)', // Verde
-                            'rgba(255, 255, 0, 0.6)', // Amarillo
-                            'rgba(255, 0, 0, 0.6)'  // Rojo
+                                'rgba(0, 128, 0, 0.6)', // Verde
+                                'rgba(255, 255, 0, 0.6)', // Amarillo
+                                'rgba(255, 0, 0, 0.6)'  // Rojo
                             ],
                             borderColor: [
-                            'rgba(0, 128, 0, 0.6)', // Verde
-                            'rgba(255, 255, 0, 0.6)', // Amarillo
-                            'rgba(255, 0, 0, 0.6)'  // Rojo
+                                'rgba(0, 128, 0, 0.6)', // Verde
+                                'rgba(255, 255, 0, 0.6)', // Amarillo
+                                'rgba(255, 0, 0, 0.6)'  // Rojo
                             ],
                             borderWidth: 1,
                         }],
                     },
                     options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Tickets por Estado',
+                                font: {
+                                    size: 24,
+                                },
+                            },
+                            legend: {
+                                position: 'bottom',
                             },
                         },
                     },
@@ -264,6 +206,6 @@
             });
         });
     </script>
-</body>
-</html>
+    </body>
+    </html>
 
